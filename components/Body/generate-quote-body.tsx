@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import QuoteModal from "@/components/modals/quote-modal";
 import DisplayQuotes from "@/components/Body/display-quotes";
+import DisplayImage from "./display-image";
+import ImageWithTextOverlay from "./image-text-overlay";
 
 const MainBody = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -34,7 +36,10 @@ const MainBody = () => {
         </div>
       </div>
       <QuoteModal isOpen={isModalOpen} onClose={handleCloseModal} />
-      <DisplayQuotes />
+      {/* <DisplayQuotes /> */}
+      {/* <DisplayImage/> */}
+      <h2 className="text-3xl mt-4 font-bold mb-2">Your Geneartions</h2>
+      <ImageWithTextOverlay/>
     </div>
   );
 };

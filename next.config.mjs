@@ -3,7 +3,7 @@
 const nextConfig = {
   // Define domains for image optimization
   images: {
-    domains: ['img.clerk.com'],
+    domains: ['img.clerk.com','images.pexels.com'],
   },
   webpack: (config, { isServer }) => {
     // Adjust webpack configuration based on whether it's for server or client

@@ -1,5 +1,3 @@
-// QuoteModal.tsx
-
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -7,6 +5,7 @@ import CategorySelector from '@/components/Helpers/category-selector';
 import QuoteSlider from '@/components/Helpers/quote-slider';
 import { handleGenerateQuotes } from '@/lib/API/generate-quote'; // Adjust import path as per your project structure
 import BackgroundImageSelector from '../Helpers/bg-image-selector'; // Import BackgroundImageSelector component
+import { useImageFetch } from '@/lib/API/bg-image-fetch'; // Import useImageFetch hook
 
 import { useStateContext } from '@/context';
 
@@ -21,23 +20,35 @@ const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose }) => {
   const [loading, setLoading] = useState<boolean>(false); // State to manage loading state
   const [selectedBgImage, setSelectedBgImage] = useState<string>(''); // State for selected background image type
 
-  const { setQuotes } = useStateContext();
+  const { quotes, setQuotes, bgimage, setBgimage } = useStateContext();
+  const { handleImageFetch } = useImageFetch(); // Use the custom hook to fetch images
 
   const handleGenerateClick = async () => {
-    setLoading(true); // Set loading state while fetching quotes
+    setLoading(true); // Set loading state while fetching quotes and images
     try {
       const data = await handleGenerateQuotes({
         quoteCount,
         selectedTags,
         setQuotes: setQuotes,
+        currentQuotes: quotes,
       });
-      // Optionally update state or handle generated quotes
+
+      const imageData = await handleImageFetch(); // Fetch images concurrently with quotes
+
+      console.log('Fetched Images:', imageData);
+      console.log('Generated Quotes:', data);
+
+      // Optionally update state or handle generated quotes and images
     } catch (error) {
-      console.error('Error generating quotes:', error);
+      console.error('Error generating quotes or images', error);
       // Optionally handle error, e.g., display error message to the user
     } finally {
-      setLoading(false); // Reset loading state after fetching quotes
+      setLoading(false); // Reset loading state after fetching quotes and images
     }
+  };
+
+  const handleBackgroundImageSearch = (query: string) => {
+    setSelectedBgImage(query); // Update state with selected background image type
   };
 
   return (
@@ -49,6 +60,11 @@ const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose }) => {
         <CategorySelector
           selectedTags={selectedTags}
           setSelectedTags={setSelectedTags}
+        />
+        <BackgroundImageSelector
+          selectedBgImage={selectedBgImage}
+          setSelectedBgImage={setSelectedBgImage}
+          onSearchChange={handleBackgroundImageSearch}
         />
         <QuoteSlider
           quoteCount={quoteCount}

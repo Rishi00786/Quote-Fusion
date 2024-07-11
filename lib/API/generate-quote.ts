@@ -2,12 +2,14 @@ interface HandleGenerateQuotesProps {
   quoteCount: number;
   selectedTags: string[];
   setQuotes: React.Dispatch<React.SetStateAction<any[]>>;
+  currentQuotes: any[];
 }
 
 export const handleGenerateQuotes = async ({
   quoteCount,
   selectedTags,
   setQuotes,
+  currentQuotes
 }: HandleGenerateQuotesProps) => {
   const api_URL = "https://api.quotable.io/quotes/random";
   const limit = quoteCount;
@@ -24,7 +26,7 @@ export const handleGenerateQuotes = async ({
     const data = await response.json();
     console.log(data); // Log the fetched data to see the structure
 
-    setQuotes(data); // Update the context state with the fetched quotes
+    setQuotes([...currentQuotes, ...data]); // Append new quotes to the existing quotes
 
     return data; // Return the fetched data for further processing
   } catch (error) {

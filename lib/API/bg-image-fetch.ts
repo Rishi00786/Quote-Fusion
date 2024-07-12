@@ -6,11 +6,11 @@ const key = pexelsApiKey;
 export const useImageFetch = () => {
   const { searchQuery, setBgimage, bgimage } = useStateContext();
 
-  const handleImageFetch = async () => {
+  const handleImageFetch = async ({quoteCount}:{quoteCount: number}) => {
     const api_URL = "https://api.pexels.com/v1/search";
     const query = searchQuery;
 
-    const new_URL = `${api_URL}?query=${query}&per_page=1`;
+    const new_URL = `${api_URL}?query=${query}&per_page=${quoteCount}`;
 
     try {
       if (!key) {
@@ -31,7 +31,11 @@ export const useImageFetch = () => {
       const data = await response.json();
       console.log(data); // Log the fetched data to see the structure
 
-      setBgimage((prevBgimages) => [...prevBgimages, data.photos[0].src.portrait]);
+      setBgimage((prevBgimages) => [
+        ...prevBgimages,
+        ...data.photos.map((photo: { src: { portrait: any; }; }) => photo.src.portrait)
+      ]);
+            console.log("fetched image log in bg-image fetch",bgimage)
       console.log(bgimage)
       return data;
     } catch (error) {

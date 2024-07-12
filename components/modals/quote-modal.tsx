@@ -33,7 +33,7 @@ const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose }) => {
         currentQuotes: quotes,
       });
 
-      const imageData = await handleImageFetch(); // Fetch images concurrently with quotes
+      const imageData = await handleImageFetch({quoteCount}); // Fetch images concurrently with quotes
 
       console.log('Fetched Images:', imageData);
       console.log('Generated Quotes:', data);

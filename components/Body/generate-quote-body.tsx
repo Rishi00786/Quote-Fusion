@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import QuoteModal from "@/components/modals/quote-modal";
 import DisplayQuotes from "@/components/Body/display-quotes";
 import DisplayImage from "./display-image";
-import ImageWithTextOverlay from "./image-text-overlay";
+import DisplayOverlay from "./display-overlays";
+import PopularGenerations from '@/components/Helpers/all-generations'
 
 const MainBody = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,7 +19,7 @@ const MainBody = () => {
   };
 
   return (
-    <div className="flex flex-col items-center h-screen bg-gray-100 dark:bg-[#1f1f1f] px-4">
+    <div className="flex flex-col items-center min-h-screen bg-gray-200 dark:bg-[#1f1f1f] px-4">
       <div className="max-w-3xl w-full bg-white mt-20 dark:bg-[#2c2c2e] p-8 shadow-lg rounded-lg">
         <h1 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-4">
           QuoteFusion
@@ -36,10 +37,9 @@ const MainBody = () => {
         </div>
       </div>
       <QuoteModal isOpen={isModalOpen} onClose={handleCloseModal} />
-      {/* <DisplayQuotes /> */}
-      {/* <DisplayImage/> */}
-      <h2 className="text-3xl mt-4 font-bold mb-2">Your Geneartions</h2>
-      <ImageWithTextOverlay/>
+      <h2 className="text-3xl mt-4 font-bold mb-2">Your Generations</h2>
+      <DisplayOverlay />
+      <PopularGenerations/>
     </div>
   );
 };

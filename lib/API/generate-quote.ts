@@ -24,7 +24,7 @@ export const handleGenerateQuotes = async ({
     }
 
     const data = await response.json();
-    console.log(data); // Log the fetched data to see the structure
+    console.log("generate quotes data",data); // Log the fetched data to see the structure
 
     setQuotes([...currentQuotes, ...data]); // Append new quotes to the existing quotes
 

@@ -21,6 +21,21 @@ model Profile {
   imageUrl String @db.Text
   email    String @db.Text
 
+  generations Generations[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Generations {
+  id       String @id @default(uuid()) 
+  imageUrl String @db.LongText
+
+  profileId String 
+  profile   Profile @relation(fields: [profileId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([profileId])
 }

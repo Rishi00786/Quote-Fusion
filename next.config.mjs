@@ -1,12 +1,8 @@
-// next.config.js
-
 const nextConfig = {
-  // Define domains for image optimization
   images: {
-    domains: ['img.clerk.com','images.pexels.com'],
+    domains: ['img.clerk.com', 'images.pexels.com'],
   },
   webpack: (config, { isServer }) => {
-    // Adjust webpack configuration based on whether it's for server or client
     if (!isServer) {
       config.resolve.fallback = {
         ...config.resolve.fallback,
@@ -20,4 +16,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default nextConfig

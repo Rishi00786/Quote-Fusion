@@ -1,7 +1,4 @@
 import { useStateContext } from "@/context";
-import { pexelsApiKey } from '@/PEXELS-KEY';
-
-const key = pexelsApiKey;
 
 export const useImageFetch = () => {
   const { searchQuery, setBgimage, bgimage } = useStateContext();
@@ -9,6 +6,11 @@ export const useImageFetch = () => {
   const handleImageFetch = async ({quoteCount}:{quoteCount: number}) => {
     const api_URL = "https://api.pexels.com/v1/search";
     const query = searchQuery;
+    const key = process.env.PEXELS_API_KEY; // Replace with your Pexels API key from environment variables
+
+    if (!key) {
+      throw new Error('PEXELS_KEY environment variable is not defined.');
+    }
 
     const new_URL = `${api_URL}?query=${query}&per_page=${quoteCount}`;
 

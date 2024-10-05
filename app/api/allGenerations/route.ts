@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { db } from "../../../lib/db"
 import { NextResponse } from 'next/server';
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: Request, res: NextApiResponse) {
     try {
         const generations = await db.generations.findMany({
             include: {

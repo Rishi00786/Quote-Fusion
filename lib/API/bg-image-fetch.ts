@@ -6,7 +6,7 @@ export const useImageFetch = () => {
   const handleImageFetch = async ({quoteCount}:{quoteCount: number}) => {
     const api_URL = "https://api.pexels.com/v1/search";
     const query = searchQuery;
-    const key = process.env.PEXELS_API_KEY; // Replace with your Pexels API key from environment variables
+    const key = "xJTgtamgnjiaKuXCf3gW9nHiKNtIU7OwgLnVxfsqCC9mHAP3us0PDnSh"; // Replace with your Pexels API key from environment variables
 
     if (!key) {
       throw new Error('PEXELS_KEY environment variable is not defined.');

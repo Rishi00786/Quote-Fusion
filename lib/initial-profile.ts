@@ -6,7 +6,7 @@ const initialProfile = async () => {
     const user = await currentUser()
 
     if (!user) {
-        return redirect('/')
+        return redirect("/sign-up")
     }
 
     const profile = await db.profile.findUnique({

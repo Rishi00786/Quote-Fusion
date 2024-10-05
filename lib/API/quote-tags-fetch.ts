@@ -1,18 +1,27 @@
-export const getQuoteTags = async () => {
-  try {
-    const response = await fetch('https://api.quotable.io/tags');
-    const data = await response.json();
+// License Error with the API (fixed)
+// import axios from 'axios';
+// import https from 'https';
 
-    // Filter tags with quoteCount > 10
-    const filteredTags = data.filter((tag: { quoteCount: number }) => tag.quoteCount > 10);
+// export const getQuoteTags = async () => {
+//   try {
+//     const response = await axios.get('https://api.quotable.io/tags', {
+//       httpsAgent: new https.Agent({
+//         rejectUnauthorized: false, // Ignore invalid SSL certificates
+//       }),
+//     });
 
-    // Sort filtered tags by quoteCount in descending order
-    filteredTags.sort((a: { quoteCount: number }, b: { quoteCount: number }) => b.quoteCount - a.quoteCount);
+//     const data = response.data;
+//     // console.log("data", data);
 
-    // Extract and return only the names of the tags
-    return filteredTags.map((tag: { name: string }) => tag.name);
-  } catch (error) {
-    console.error('Error fetching tags:', error);
-    return []; // Return empty array on error
-  }
-};
+//     const filteredTags = data.filter((tag: { quoteCount: number }) => tag.quoteCount > 10);
+//     console.log(filteredTags)
+
+//     filteredTags.sort((a: { quoteCount: number }, b: { quoteCount: number }) => b.quoteCount - a.quoteCount);
+
+//     return filteredTags.map((tag: { name: string }) => tag.name);
+//   } catch (error) {
+//     console.error('Error fetching tags:', error);
+//     return [];
+//   }
+
+// };
